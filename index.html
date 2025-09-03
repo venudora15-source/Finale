@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { display: flex; height: 100vh; }
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
+    }
+    .sidebar h2 { margin-bottom: 20px; }
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 10px;
+      margin: 5px 0;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .sidebar a:hover { background: #34495e; }
+    /* Main */
+    .main {
+      flex: 1;
+      background: #ecf0f1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .header {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
+    }
+    th { background: #3498db; color: white; }
+    /* Form */
+    form input, form button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    form button {
+      background: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    form button:hover { background: #2980b9; }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2>Dashboard</h2>
+    <a href="#">🏠 Home</a>
+    <a href="#">👨‍🎓 Students</a>
+    <a href="#">📊 Reports</a>
+    <a href="#">⚙️ Settings</a>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="header">
+      <h1>Student Dashboard</h1>
+      <p id="datetime"></p>
+    </div>
+
+    <div class="card">
+      <h2>Student List</h2>
+      <table id="studentTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Roll No</th>
+            <th>Course</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Rahul Sharma</td><td>101</td><td>BSc IT</td></tr>
+          <tr><td>Anjali Singh</td><td>102</td><td>BCom</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Add New Student</h2>
+      <form id="studentForm">
+        <input type="text" id="name" placeholder="Student Name" required>
+        <input type="text" id="roll" placeholder="Roll No" required>
+        <input type="text" id="course" placeholder="Course" required>
+        <button type="submit">Add Student</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Show current date & time
+    function updateDateTime() {
+      document.getElementById("datetime").innerText = new Date().toLocaleString();
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    // Add student
+    const form = document.getElementById("studentForm");
+    const table = document.getElementById("studentTable").getElementsByTagName("tbody")[0];
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      let name = document.getElementById("name").value;
+      let roll = document.getElementById("roll").value;
+      let course = document.getElementById("course").value;
+
+      let newRow = table.insertRow();
+      newRow.insertCell(0).innerText = name;
+      newRow.insertCell(1).innerText = roll;
+      newRow.insertCell(2).innerText = course;
+
+      form.reset();
+    });
+  </script>
+</body>
+</html>
